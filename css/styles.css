@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     border: 0;
+    font-family: Space Mono, Helvetica, sans-serif;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -12,9 +12,56 @@ body{
     height: 100vh;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    background-color:black;
 }
 
 h1{
     text-align: center;
     padding-bottom: 10px;
+}
+
+/* customising text area */
+input[type=text] {
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    font-family: Space Mono, sans-serif;
+  }
+
+input {
+    color:white;
+    background-color:black;
+    font-size:40px;
+}
+
+/* button styling */
+
+.btn {
+    padding: 10px;
+    width:150px;
+    background-color: rgb(57, 112, 108, 0.5);
+    color: #fff;
+    border-radius: 25px;
+}
+
+.btn:hover {
+    background-color: rgb(135, 209, 230, 0.5);
+    cursor: pointer;
+    transition: all 1s ease 0s;
+}
+
+
+.penColor {
+    background-color: rgb(57, 112, 108, 0.5);
+    width:150px;
+    padding-right:30px;
+    padding-left:30px; 
+}
+
+.penColor:hover {
+    background-color: rgb(135, 209, 230, 0.5);
+    cursor: pointer;
+    transition: all 1s ease 0s;
 }
