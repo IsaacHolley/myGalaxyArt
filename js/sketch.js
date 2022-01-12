@@ -152,9 +152,9 @@ function setup() {
 
     btnRandomize = createButton("Randomize");
     btnRandomize.mousePressed(() => {
+        pen = eraser = tardis = false;
         background(0); // resets background
         randomPlanets = randomGalaxy = starField = true;
-        pen = eraser = tardis = false;
     });
 
     btnStarWalker = createButton("Star Walker");
