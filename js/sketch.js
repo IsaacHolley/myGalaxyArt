@@ -367,7 +367,9 @@ function keyPressed() {
 
 function drawTardis() {
     // TARDIS P5 code - executed when btnTardis is clicked
-
+    
+    push();
+    
     //changing rotation and scale
     scale(0.5);
     angleMode(DEGREES);
@@ -448,7 +450,8 @@ function drawTardis() {
 
     //signal
     rect(tardisX + 110, tardisY - 47, tardisWidth - 220, tardisHeight / 22);
-
+    
+    pop();
 }
 
 
