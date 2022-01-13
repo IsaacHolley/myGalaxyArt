@@ -114,7 +114,8 @@ function setup() {
     btnClear = createButton("Clear");
     btnClear.mousePressed(() => {
         clearButton = true;
-        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
+        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = starWalker = false;
+        btnStarWalkerStop.hide();
     });
 
     // Array of the left column buttons
@@ -166,7 +167,6 @@ function setup() {
     btnStarWalker.mousePressed(() => {
         starWalker = true;
         btnStarWalkerStop.show();
-
     });
 
     // Array of the right column buttons
