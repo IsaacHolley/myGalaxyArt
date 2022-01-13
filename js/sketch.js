@@ -1,5 +1,5 @@
 // global variables
-var colorPicker, brushSize, glowStar, btnMusic, colorPicker, starX, starY, width, height;
+var colorPicker, brushSize, glowStar, btnMusic, colorPicker, starX, starY;
 
 // set variables to false
 var [
@@ -24,6 +24,10 @@ let planets = [];
 // for starField
 const starCount = 200;
 
+//canvas propeties
+const canvasWidth = 900;
+const canvasHeight = 500;
+
 function preload() {
 
     //preload music
@@ -47,7 +51,7 @@ function preload() {
 function setup() {
 
     // Canvas setup
-    var canvas = createCanvas(900, 500);
+    var canvas = createCanvas(canvasWidth, canvasHeight);
     canvas.parent("p5container");
     canvas.addClass('canvasGlow');
     background(0);
@@ -155,7 +159,9 @@ function setup() {
     btnRandomize = createButton("Randomize");
     btnRandomize.mousePressed(() => {
       background(0);
-      randomGalaxy = starField = randomPlanets = true;
+      randomGalaxy = true;
+      starField = true;
+      randomPlanets = true;
       tardis = false;
 
       colorPicker.hide();
@@ -167,6 +173,7 @@ function setup() {
     btnStarWalker.mousePressed(() => {
         starWalker = true;
         btnStarWalkerStop.show();
+
     });
 
     // Array of the right column buttons
@@ -218,7 +225,6 @@ function draw() {
     // chooses a random integer for choosing a random brush 
     var randomBrush = int(random(0, 6));
 
-
     //Brushes
 
     if (mouseIsPressed) {
@@ -239,15 +245,17 @@ function draw() {
             // Galaxy Brush - creates nebulas & galaxies on the canvas
         } else if (galaxyBrush === true) {
             sliderB.show();
-            imageMode(CENTER);
-            image(galaxies[randomBrush], mouseX, mouseY, brushSize, brushSize);
-
+            if(mouseX < canvasWidth) { // stops drawing outside canvas
+                imageMode(CENTER);
+                 image(galaxies[randomBrush], mouseX, mouseY, brushSize, brushSize);
+            }
             // Planet Brush - creates planets on the canvas
         } else if (planetBrush === true) {
             sliderB.show();
-            imageMode(CENTER);
-            image(planets[randomBrush], mouseX, mouseY, brushSize, brushSize);
-
+            if(mouseX < canvasWidth) {
+               imageMode(CENTER);
+               image(planets[randomBrush], mouseX, mouseY, brushSize, brushSize);
+            }
             // Eraser - uses a black line to erase the canvas
         } else if (eraser === true) {
             sliderD.show();
@@ -276,8 +284,8 @@ function draw() {
     if (starField === true) {
         for (let i = 0; i <= starCount; i++) {
             var randomStar = random(10, 25)
-            var xPos = random(0, width);
-            var yPos = random(0, height);
+            var xPos = random(-10, canvasWidth);
+            var yPos = random(-10, canvasHeight);
             image(glowStar, xPos, yPos, randomStar, randomStar);
         }
         starField = false; //executes once per click
@@ -287,8 +295,8 @@ function draw() {
     // Random Galaxy - generates random galaxies on the canvas
     if (randomGalaxy === true) {
         for (var i = 0; i <= 4; i = i + 1) {
-            var xPos = random(-100, 1000);
-            var yPos = random(-100, height);
+            var xPos = random(-80, canvasWidth);
+            var yPos = random(-80, canvasHeight);
             var randomG = int(random(0, 6));
             var galaxySize = random(100, 400);
             image(galaxies[randomG], xPos, yPos, galaxySize, galaxySize);
@@ -350,8 +358,6 @@ function draw() {
         nebulaBrush = false;
         starBrush = false;
     }
-
-    console.log(i);
 
 }
 
