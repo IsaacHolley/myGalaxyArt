@@ -14,7 +14,8 @@ var [
     starField,
     randomPlanets,
     tardis,
-] = Array(11).fill(false);
+    randomize
+] = Array(12).fill(false);
 
 // arrays
 let galaxies = [];
@@ -25,10 +26,10 @@ const starCount = 200;
 
 function preload() {
 
-    //preload music 
-    doctorTheme = loadSound('assets/music/doctorWho.mp3');
-    starTrek = loadSound('assets/music/starTrek.mp3')
+    //preload music
     clairDeLune = loadSound('assets/music/clairDeLune.mp3')
+    floatingInSpace = loadSound('assets/music/floatingInSpace.mp3')
+    nebulaReborn = loadSound('assets/music/nebulaReborn.mp3');
 
     //preload images
     glowStar = loadImage('assets/glowStar.png');
@@ -63,25 +64,25 @@ function setup() {
     btnStar = createButton("Star Brush");
     btnStar.mousePressed(() => {
         starBrush = true;
-        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starField = tardis = false;
+        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starField = tardis = randomize = false;
     });
 
     btnGalaxy = createButton("Galaxy Brush");
     btnGalaxy.mousePressed(() => {
         galaxyBrush = true;
-        eraser = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = false;
+        eraser = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
     });
 
     btnPlanet = createButton("Planet Brush");
     btnPlanet.mousePressed(() => {
         planetBrush = true;
-        eraser = galaxyBrush = pen = randomGalaxy = randomPlanets = starBrush = starField = tardis = false;
+        eraser = galaxyBrush = pen = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
     });
 
     btnPen = createButton("Pen");
     btnPen.mousePressed(() => {
         pen = true;
-        eraser = galaxyBrush = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = false;
+        eraser = galaxyBrush = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
         colorPicker.show();
     });
 
@@ -89,31 +90,31 @@ function setup() {
     btnStarField = createButton("Star Field");
     btnStarField.mousePressed(() => {
         starField = true;
-        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = tardis = false;
+        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = tardis = randomize = false;
     });
 
     btnRandomGalaxy = createButton("Random Galaxy");
     btnRandomGalaxy.mousePressed(() => {
         randomGalaxy = true;
-        eraser = galaxyBrush = pen = planetBrush = randomPlanets = starBrush = tardis = false;
+        eraser = galaxyBrush = pen = planetBrush = randomPlanets = starBrush = tardis = randomize = false;
     });
 
     btnRandomPlanets = createButton("Random Planets");
     btnRandomPlanets.mousePressed(() => {
         randomPlanets = true;
-        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = starBrush = tardis = false;
+        eraser = galaxyBrush = pen = planetBrush = randomGalaxy = starBrush = tardis = randomize = false;
     });
 
     btnErase = createButton("Eraser");
     btnErase.mousePressed(() => {
         eraser = true;
-        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = false;
+        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
     });
 
     btnClear = createButton("Clear");
     btnClear.mousePressed(() => {
         clearButton = true;
-        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = false;
+        galaxyBrush = pen = planetBrush = randomGalaxy = randomPlanets = starBrush = starField = tardis = randomize = false;
     });
 
     // Array of the left column buttons
@@ -139,22 +140,27 @@ function setup() {
     btnMusic = createSelect(); // music dropdown 
     btnMusic.option('No Music')
     btnMusic.option('Clair de Lune');
-    btnMusic.option('Doctor Who Theme');
-    btnMusic.option('Star Trek Voyager');
+    btnMusic.option('Floating in Space');
+    btnMusic.option('Nebula Reborn');
     btnMusic.changed(music);
 
     btnTardis = createButton("Add TARDIS");
     btnTardis.mousePressed(() => {
         tardis = true;
         eraser = galaxyBrush = pen = planetBrush = randomGalaxy =
-            randomPlanets = starBrush = starField = false;
+            randomPlanets = starBrush = starField = randomize = false;
     });
 
     btnRandomize = createButton("Randomize");
     btnRandomize.mousePressed(() => {
-        pen = eraser = tardis = false;
-        background(0); // resets background
-        randomPlanets = randomGalaxy = starField = true;
+      background(0);
+      randomGalaxy = true;
+      starField = true;
+      randomPlanets = true;
+
+      colorPicker.hide();
+      sliderB.hide();
+      sliderD.hide();
     });
 
     btnStarWalker = createButton("Star Walker");
@@ -344,8 +350,9 @@ function draw() {
         clearButton = false;
         nebulaBrush = false;
         starBrush = false;
-        tardis = false;
     }
+
+    console.log(i);
 
 }
 
@@ -367,9 +374,9 @@ function keyPressed() {
 
 function drawTardis() {
     // TARDIS P5 code - executed when btnTardis is clicked
-    
+
     push();
-    
+
     //changing rotation and scale
     scale(0.5);
     angleMode(DEGREES);
@@ -450,8 +457,9 @@ function drawTardis() {
 
     //signal
     rect(tardisX + 110, tardisY - 47, tardisWidth - 220, tardisHeight / 22);
-    
+
     pop();
+
 }
 
 
@@ -459,21 +467,21 @@ function music() {
     // Music - executed depending on dropdown 
     let musicChoice = btnMusic.value();
 
-    if (musicChoice === 'Doctor Who Theme') {
-        doctorTheme.play();
-        starTrek.stop();
-        clairDeLune.stop();
-    } else if (musicChoice === 'Star Trek Voyager') {
-        doctorTheme.stop();
-        clairDeLune.stop();
-        starTrek.play();
-    } else if (musicChoice === 'Clair de Lune') {
-        clairDeLune.play();
-        starTrek.stop();
-        doctorTheme.stop();
+    if (musicChoice === 'Clair de Lune') {
+      clairDeLune.play();
+      floatingInSpace.stop();
+      nebulaReborn.stop();
+    } else if (musicChoice === 'Floating in Space') {
+      clairDeLune.stop();
+      nebulaReborn.stop();
+      floatingInSpace.play();
+    } else if (musicChoice === 'Nebula Reborn') {
+      clairDeLune.stop();
+      floatingInSpace.stop();
+      nebulaReborn.play();
     } else if (musicChoice === 'No Music') {
-        doctorTheme.stop();
-        starTrek.stop();
-        clairDeLune.stop();
+      floatingInSpace.stop();
+      nebulaReborn.stop();
+      clairDeLune.stop();
     }
 }
