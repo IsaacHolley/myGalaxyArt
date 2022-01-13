@@ -17,7 +17,7 @@ var [
 ] = Array(11).fill(false);
 
 // arrays
-let galaxyMix = [];
+let galaxies = [];
 let planets = [];
 
 // for starField
@@ -35,7 +35,7 @@ function preload() {
 
     for (let brushNum = 0; brushNum < 6; brushNum++) {
         var galaxyFile = 'assets/galaxy/brushG' + brushNum + '.png';
-        galaxyMix[brushNum] = loadImage(galaxyFile);
+        galaxies[brushNum] = loadImage(galaxyFile);
 
         var planetsFile = 'assets/planets/brushP' + brushNum + '.png';
         planets[brushNum] = loadImage(planetsFile);
@@ -235,7 +235,7 @@ function draw() {
         } else if (galaxyBrush === true) {
             sliderB.show();
             imageMode(CENTER);
-            image(galaxyMix[randomBrush], mouseX, mouseY, brushSize, brushSize);
+            image(galaxies[randomBrush], mouseX, mouseY, brushSize, brushSize);
 
             // Planet Brush - creates planets on the canvas
         } else if (planetBrush === true) {
@@ -286,7 +286,7 @@ function draw() {
             var yPos = random(-100, height);
             var randomG = int(random(0, 6));
             var galaxySize = random(100, 400);
-            image(galaxyMix[randomG], xPos, yPos, galaxySize, galaxySize);
+            image(galaxies[randomG], xPos, yPos, galaxySize, galaxySize);
         }
         randomGalaxy = false; //executes once per click
     }
