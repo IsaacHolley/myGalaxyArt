@@ -154,9 +154,8 @@ function setup() {
     btnRandomize = createButton("Randomize");
     btnRandomize.mousePressed(() => {
       background(0);
-      randomGalaxy = true;
-      starField = true;
-      randomPlanets = true;
+      randomGalaxy = starField = randomPlanets = true;
+      tardis = false;
 
       colorPicker.hide();
       sliderB.hide();
